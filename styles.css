@@ -402,9 +402,12 @@ button { cursor: pointer; }
   .cookie-banner { right: .65rem; bottom: .65rem; width: calc(100% - 1.3rem); padding: .85rem; }
 }
 
+@media (max-width: 26.5rem) {
+  .nav-cta { display: none; }
+}
+
 @media (max-width: 24rem) {
   .nav .brand { font-size: 1.26rem; }
-  .nav-cta { display: none; }
   .footer-inner { padding-block: 1rem; flex-wrap: wrap; gap: .6rem 1.4rem; }
   .form-secondary { flex-wrap: wrap; }
 }
