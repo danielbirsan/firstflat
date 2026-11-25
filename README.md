@@ -1,6 +1,6 @@
 # FirstFlat
 
-Site bilingv pentru FirstFlat, construit cu React și Vite.
+Site bilingv pentru FirstFlat, construit cu React și Vite. Pagina principală prezintă cum chiriașii și proprietarii pot gestiona împreună facturile, documentele, termenele și reparațiile unei locuințe.
 
 ## Dezvoltare locală
 

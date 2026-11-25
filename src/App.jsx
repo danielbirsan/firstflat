@@ -32,10 +32,10 @@ export default function App() {
   useEffect(() => {
     document.title = confirmation
       ? (language === "en" ? "Thank you — FirstFlat" : "Mulțumim — FirstFlat")
-      : (language === "en" ? "FirstFlat — Your home, in order" : "FirstFlat — Locuința ta, în ordine");
+      : (language === "en" ? "FirstFlat — One home. One shared plan." : "FirstFlat — O locuință. Un plan comun.");
     document.querySelector('meta[name="description"]').content = language === "en"
-      ? "FirstFlat brings your home's bills, documents and important dates together."
-      : "FirstFlat aduce într-un singur loc facturile, documentele și termenele locuinței tale.";
+      ? "FirstFlat gives tenants and landlords a shared place for bills, documents, due dates, and repairs."
+      : "FirstFlat le oferă chiriașilor și proprietarilor un loc comun pentru facturi, documente, termene și reparații.";
   }, [confirmation, language]);
 
   useLayoutEffect(() => {
@@ -61,8 +61,8 @@ export default function App() {
         <nav className="container nav" aria-label={t("Navigare principală", "Main navigation")}>
           <Brand />
           <div className="nav-links">
-            <a href="#features">{t("Ce poți face", "What you can do")}</a>
             <a href="#how-it-works">{t("Cum funcționează", "How it works")}</a>
+            <a href="#features">{t("Funcționalități", "Features")}</a>
           </div>
           <div className="nav-actions">
             <LanguagePicker language={language} setLanguage={setLanguage} />
