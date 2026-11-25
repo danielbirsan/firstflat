@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import posthog, { isPostHogConfigured, posthogLogger } from "./posthog.js";
 import "./access-form.css";
 
 const formEndpoint =
@@ -6,6 +7,10 @@ const formEndpoint =
 const roleField = "entry.461125814";
 const nameField = "entry.464851562";
 const emailField = "entry.709261515";
+
+function capture(event, properties) {
+  if (isPostHogConfigured) posthog.capture(event, properties);
+}
 
 const content = {
   ro: {
@@ -83,6 +88,9 @@ export function AccessForm({ language, onSubmitted }) {
     if (sending) return;
 
     if (!showDetails) {
+      const requesterRole = owner.current.checked ? "owner" : "renter";
+      capture("access_request_details_started", { requester_role: requesterRole });
+      posthogLogger.info("access request details started", { requester_role: requesterRole });
       nextFocus.current = name.current;
       setShowDetails(true);
       return;
@@ -106,11 +114,16 @@ export function AccessForm({ language, onSubmitted }) {
       // Google Forms accepts the POST but exposes only an opaque response to this site.
       await fetch(form.action, { method: "POST", mode: "no-cors", body: fields });
     } catch {
+      capture("access_request_submission_failed");
+      posthogLogger.warn("access request submission failed");
       setSending(false);
       setSendError(true);
       return;
     }
 
+    const requesterRole = owner.current.checked ? "owner" : "renter";
+    capture("access_request_submitted", { requester_role: requesterRole });
+    posthogLogger.info("access request submitted", { requester_role: requesterRole });
     onSubmitted();
   }
 
