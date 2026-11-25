@@ -1,0 +1,28 @@
+.access-confirmation {
+  max-width: 38rem;
+  padding-block: clamp(3rem, 8vw, 6rem);
+}
+
+.access-confirmation h1 {
+  margin-top: .9rem;
+  font: 400 clamp(2.05rem, 4vw, 3.1rem) / 1.06 var(--serif);
+  letter-spacing: -.04em;
+}
+
+.access-confirmation .button-primary {
+  width: auto;
+  margin-top: 1.5rem;
+}
+
+.form-error {
+  color: #a83726;
+}
+
+:root[data-theme="dark"] .form-error {
+  color: #ffb6a9;
+}
+
+#access-form button:disabled {
+  cursor: wait;
+  opacity: .65;
+}
