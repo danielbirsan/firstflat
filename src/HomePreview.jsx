@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import posthog, { isPostHogConfigured } from "./posthog.js";
 
 const tabs = [
   {
@@ -31,6 +32,13 @@ export default function HomePreview({ t }) {
   const [active, setActive] = useState(0);
   const tabList = useRef(null);
 
+  function selectTab(index) {
+    if (isPostHogConfigured) {
+      posthog.capture("home_preview_tab_selected", { preview_section: tabs[index].id });
+    }
+    setActive(index);
+  }
+
   function handleTabKey(event, index) {
     let next;
     switch (event.key) {
@@ -50,7 +58,7 @@ export default function HomePreview({ t }) {
         return;
     }
     event.preventDefault();
-    setActive(next);
+    selectTab(next);
     tabList.current.children[next].focus();
   }
 
@@ -90,7 +98,7 @@ export default function HomePreview({ t }) {
               aria-controls={`demo-${id}`}
               aria-selected={index === active}
               tabIndex={index === active ? 0 : -1}
-              onClick={() => setActive(index)}
+              onClick={() => selectTab(index)}
               onKeyDown={(event) => handleTabKey(event, index)}
             >
               {t(...label)}

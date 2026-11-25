@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { applyAnalyticsConsent, trackAccessContinue } from './analytics.js';
+import { applyPostHogConsent } from './posthog.js';
 import { readStorage, writeStorage } from './storage.js';
 
 const languageKey = 'firstflat-language';
@@ -8,6 +9,11 @@ const consentKey = 'firstflat.analytics-consent';
 
 function hasConsentChoice(consent) {
   return consent === 'granted' || consent === 'denied';
+}
+
+function applyConsent(preference) {
+  applyAnalyticsConsent(preference);
+  applyPostHogConsent(preference);
 }
 
 export function usePreferences() {
@@ -33,13 +39,13 @@ export function usePreferences() {
   }, [theme]);
 
   useEffect(() => {
-    applyAnalyticsConsent(readStorage('localStorage', consentKey));
+    applyConsent(readStorage('localStorage', consentKey));
 
     function syncConsent(event) {
       if (event.storageArea !== window.localStorage) return;
       if (event.key !== consentKey && event.key !== null) return;
       const consent = readStorage('localStorage', consentKey);
-      applyAnalyticsConsent(consent);
+      applyConsent(consent);
       setCookieBannerOpen(!hasConsentChoice(consent));
     }
 
@@ -78,7 +84,7 @@ export function usePreferences() {
 
   function chooseConsent(consent) {
     writeStorage('localStorage', consentKey, consent);
-    applyAnalyticsConsent(consent);
+    applyConsent(consent);
     setCookieBannerOpen(false);
     settingsOpener.current?.focus();
     settingsOpener.current = null;
