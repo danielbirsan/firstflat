@@ -1,3 +1,4 @@
+import posthog, { posthogConfigured } from './posthog.js';
 import { readStorage, writeStorage } from './storage.js';
 
 const sourceKey = 'firstflat.attribution';
@@ -92,6 +93,10 @@ function disableAnalytics() {
 export function applyAnalyticsConsent(preference) {
   if (consent === preference) return;
   consent = preference;
+  if (posthogConfigured) {
+    if (preference === 'granted') posthog.opt_in_capturing();
+    else posthog.opt_out_capturing();
+  }
   if (preference === 'granted') {
     attribution = captureAttribution();
     enableAnalytics();
