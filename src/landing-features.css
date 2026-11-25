@@ -1,0 +1,75 @@
+.landing-features {
+  padding-block: clamp(4rem, 8vw, 7rem);
+  background: var(--paper);
+  scroll-margin-top: 5rem;
+}
+
+.landing-features h2 {
+  max-width: 20ch;
+  margin: 0 0 clamp(1.5rem, 4vw, 2.75rem);
+  color: var(--ink);
+  font: 400 clamp(2.25rem, 4.5vw, 4rem) / 1.05 var(--serif);
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.landing-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(.875rem, 2vw, 1.25rem);
+}
+
+.landing-feature {
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  border: 1px solid var(--edge);
+  border-radius: 1.125rem;
+  background: var(--surface);
+}
+
+.landing-feature-mark {
+  display: grid;
+  place-items: center;
+  width: 2.875rem;
+  height: 2.875rem;
+  margin-bottom: 1.375rem;
+  border-radius: .75rem;
+  color: var(--green);
+  background: var(--icon-bg);
+}
+
+.landing-feature-mark svg {
+  width: 1.375rem;
+  height: 1.375rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.landing-feature h3 {
+  margin: 0 0 .5rem;
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.landing-feature p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .975rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 64rem) {
+  .landing-features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 34rem) {
+  .landing-features-grid {
+    grid-template-columns: 1fr;
+  }
+}
